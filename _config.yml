@@ -50,6 +50,8 @@ author:
 menu:
   - title:             Tags
     url:               /tags/
+  - title:             Philosophy
+    url:               /philosophy/
   - title:             About
     url:               /about/
 

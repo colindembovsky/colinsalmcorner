@@ -5,6 +5,26 @@ layout: page
 
 {% assign posts = site.categories[page.slug] | default:site.tags[page.slug] | default:site.posts %}
 
+{% comment %}
+  If the page has a category, then only include posts from the category.
+{% endcomment %}
+{% if page.category %}
+  {% assign posts = site.categories[page.category] %}
+{% endif %}
+
+{% comment %}
+  If the page has an except category, show everything except that category.
+{% endcomment %}
+{% if page.except-category %}
+  {% assign filteredPosts = "" | split: ',' %}
+  {% for post in site.posts %}
+    {% unless post.categories contains page.except-category %}
+      {% assign filteredPosts = filteredPosts | push: post %}
+    {% endunless %}
+  {% endfor %}
+  {% assign posts = filteredPosts %}
+{% endif %}
+
 {{ content }}
 
 {% assign date_formats  = site.data.strings.date_formats               %}
